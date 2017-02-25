@@ -15,6 +15,7 @@ public class DownloadTask implements Runnable {
     private BackgroundThread backgroundThread;
     private String origin, destination;
 
+    // task created while also having access to the background thread's class variables
     public DownloadTask(BackgroundThread thread) {
         lengthSec = random.nextInt(3) + 1;
         backgroundThread = thread;
@@ -23,9 +24,13 @@ public class DownloadTask implements Runnable {
     @Override
     public void run() {
         try {
+
+            // simulates a delay
             Thread.sleep(lengthSec * 1000);
             origin = "Sydney";
             destination = "Paris";
+
+            // set thread's origin and destination variables
             backgroundThread.setThreadOrigin(origin);
             backgroundThread.setThreadDestination(destination);
 

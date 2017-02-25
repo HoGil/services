@@ -21,15 +21,17 @@ public class MainActivity extends AppCompatActivity implements ThreadListener {
         viewOrigin = (TextView)findViewById(R.id.view_origin);
         viewDestination = (TextView)findViewById(R.id.view_destination);
 
-        // create background thread
+        // create background thread and pass the context which has the ThreadListener
         backThread = new BackgroundThread(this);
+
         // start the background thread
         backThread.start();
 
-        // create the handler
+        // create the handler for this UI Thread (automatically attaches to Looper)
         handler = new Handler();
 
-        // start the download
+        // start the download and give to it the background thread so it can access its class
+        // variables
         backThread.startDownload(new DownloadTask(backThread));
 
     }
